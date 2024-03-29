@@ -13,7 +13,6 @@ html, body {
 	overflow: hidden;
 	background-color: green;
 	background-image: url('./grass.jpg');
-	background-image: linear-gradient(to bottom, #00000050, #ffffff10), url(./grass.jpg);
 }
 #kubik {
 	position: absolute;
@@ -146,6 +145,7 @@ html, body {
 			calculateWalkerTurn()
 		})
 
+		let bx = 0, by = 0
 		const playAnimation = () => {
 			let dx = 0, dy = 0, ds = 1
 			keysPressed.forEach((key) => {
@@ -156,6 +156,14 @@ html, body {
 			})
 			x += dx * ds
 			y += dy * ds
+
+			if (x < 0 || x > setup.screenLimit.width) 
+				bx -= dx * ds
+			if (y < 0 || y > setup.screenLimit.height) 
+				by -= dy * ds
+
+			elements.field.style.backgroundPositionX = `${bx}px`
+			elements.field.style.backgroundPositionY = `${by}px`
 
 			x = Math.max(Math.min(x, setup.screenLimit.width), 0)
 			y = Math.max(Math.min(y, setup.screenLimit.height), 0)
